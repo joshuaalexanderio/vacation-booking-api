@@ -69,9 +69,11 @@ public class CheckoutServiceImpl implements CheckoutService{
             for (CartItem item : cartItems) {
                 cart.add(item);
             }
-            
+            if (customer == null) {
+                return new PurchaseResponse("ERROR: Customer information is required.", false);
+            }
+            else {
             // Add cart to customer
-            if (customer != null) {
                 customer.add(cart);
                 // Save the customer and cascade to cart and cart items
                 customerRepository.save(customer);

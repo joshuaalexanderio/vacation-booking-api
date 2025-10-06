@@ -71,16 +71,20 @@ export class AddCustomerComponent implements OnInit {
       address: this.address,
       postal_code: this.postal_code,
       phone: this.phone,
-      country: this.countryUrl + "/" + this.countryChoice,
       division: this.divisionUrl + "/" + this.divisionChoice
     }
 
     // post to customer
-    this.http.post(this.customerUrl, customer).subscribe();
-
-    this.router.navigate(["/customer"], ).then(() => {
-      window.location.reload();
+    this.http.post(this.customerUrl, customer).subscribe({
+      next: (response) => {
+        console.log('Customer saved successfully:', response);
+        this.router.navigate(["/customer"]).then(() => {
+          window.location.reload();
+        });
+      },
+      error: (error) => {
+        console.error('Error saving customer:', error);
+      }
     });
   }
-
 }
