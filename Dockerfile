@@ -13,10 +13,6 @@ COPY src src
 
 RUN ./mvnw clean package -DskipTests
 
-# Create writable temp directories
-RUN mkdir -p /app/tmp /app/tomcat && chmod -R 777 /app/tmp /app/tomcat
-
 EXPOSE 8080
 
-# Set temp directory and run
-CMD ["java", "-Djava.io.tmpdir=/app/tmp", "-Dserver.tomcat.basedir=/app/tomcat", "-jar", "/app/target/vacation-backend-api-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "/app/target/vacation-backend-api-0.0.1-SNAPSHOT.jar"]
